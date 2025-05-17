@@ -142,9 +142,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODELS='profileCore.Profile'
+AUTH_USER_MODEL='profileCore.DashboardProfile'
 AUTHENTICATION_BACKENDS=('django.contrib.auth.backends.ModelBackend',
                          'allauth.account.auth_backends.AuthenticationBackend')
+
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'

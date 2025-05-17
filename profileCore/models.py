@@ -1,5 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import BaseUserManager
+
+from django.contrib.auth.models import BaseUserManager
+
+class DashboardProfileManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('O email é obrigatório')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
+
 
 class DashboardProfile(AbstractUser):
     SEX_CHOICES=((1,'F'),
@@ -11,6 +30,7 @@ class DashboardProfile(AbstractUser):
                  (7,'O+'),(8,'O-'))
     name=models.CharField(max_length=144)
     username=None
+    email=models.EmailField(max_length=255,unique=True)
     sex=models.IntegerField(blank=True,null=True,choices=SEX_CHOICES)
     weigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=5)
     heigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=3)
@@ -20,6 +40,7 @@ class DashboardProfile(AbstractUser):
     age=models.PositiveIntegerField(blank=True,null=True)
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=[]
+    objects=DashboardProfileManager()
 
 
     groups = models.ManyToManyField(
@@ -47,8 +68,9 @@ class DashboardProfile(AbstractUser):
         
         return self.weigth/pow(self.heigth,2)
 
+    
     def class_IMC(self):
-        imc=self.calc_IMC()
+        imc=self.calc_IMC
         if imc is None:
             return 'erro, não classificado',None
         
@@ -83,7 +105,17 @@ class DashboardProfile(AbstractUser):
         for classification,data in tabela_imc.items():
             if data.get('min')<=imc and imc<= data.get('max'):
                 return classification,data.get('grau_obesidade')
-            return 'erro, não classificado',None
+        return 'erro, não classificado',None
+
+    @property   
+    def imc_classification(self):
+        classification,_=self.class_IMC()
+        return classification
+    
+    @property   
+    def imc_degree(self):
+        _,degree=self.class_IMC()
+        return degree
     class Meta:
         verbose_name='perfil'
         verbose_name_plural='perfis'

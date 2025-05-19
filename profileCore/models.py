@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
-
-from django.contrib.auth.models import BaseUserManager
+from simple_history.models import HistoricalRecords
 
 class DashboardProfileManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -41,6 +40,8 @@ class DashboardProfile(AbstractUser):
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=[]
     objects=DashboardProfileManager()
+
+    history=HistoricalRecords()
 
 
     groups = models.ManyToManyField(

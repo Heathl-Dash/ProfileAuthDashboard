@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  profilesdashboard-db:
+    image: postgres:17.5
+    env_file: .env
+    ports:
+      - 5432:5432
+    networks:
+      - profilesdashboard-rede
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  django_profiledashboard:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    env_file: .env
+    environment:
+      - DB_HOST=profilesdashboard-db
+      - DB_NAME=${POSTGRES_DB}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PORT=${DB_PORT}
+
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/profileAuth
+    depends_on:
+      - profilesdashboard-db
+    networks:
+      - profilesdashboard-rede
+    
+    
+
+networks:
+  profilesdashboard-rede:
+    driver: bridge

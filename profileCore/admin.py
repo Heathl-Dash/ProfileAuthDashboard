@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import DashboardProfile
 
-# Register your models here.
+admin.site.register(DashboardProfile)
+admin.site.register(DashboardProfile.history.model)

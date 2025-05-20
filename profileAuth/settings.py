@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+SITE_ID=1
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -38,12 +40,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'profile.apps.ProfilecoreConfig',
+    'profileCore.apps.ProfilecoreConfig',
 
 
-    'rest_framework'
+    'rest_framework',
+    'simple_history',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
+
 ]
-
+SOCIALACCOUNT_PROVIDERS={
+    'google':{
+        'SCOPE':[
+            'profile',
+            'email'
+        ],
+        'AUTH_PARAMS':{
+            'access_type':'online'
+        }
+    }
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'profileAuth.urls'
@@ -79,11 +99,21 @@ WSGI_APPLICATION = 'profileAuth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DB_ENGINE'),
+        'NAME': os.environ.get('DB_NAME'),
+        'PASSWORD':os.environ.get('DB_PASSWORD'),
+        'HOST':os.environ.get('DB_HOST'),
+        'USER':os.environ.get('DB_USER'),
+        'PORT':os.environ.get('DB_PORT'),
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',  # Cria um arquivo `db.sqlite3` na raiz do projeto
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -107,9 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Fortaleza'
 
 USE_I18N = True
 
@@ -125,4 +155,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODELS='profileCore.Profile'
+AUTH_USER_MODEL='profileCore.DashboardProfile'
+AUTHENTICATION_BACKENDS=('django.contrib.auth.backends.ModelBackend',
+                         'allauth.account.auth_backends.AuthenticationBackend')
+
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+
+LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/'

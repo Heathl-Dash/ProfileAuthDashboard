@@ -14,9 +14,15 @@ services:
       timeout: 5s
       retries: 5
 
-
+  redis:
+    image: redis:8.0-alpine
+    expose:
+      - 6379
+    container_name: redis_dashboard
+    
   django_profiledashboard:
     build: .
+    container_name: django_profiledashboard
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     env_file: .env
     environment:
@@ -25,6 +31,8 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_USER=${POSTGRES_USER}
       - DB_PORT=${DB_PORT}
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
 
     ports:
       - 8000:8000
@@ -32,10 +40,19 @@ services:
       - .:/profileAuth
     depends_on:
       - profilesdashboard-db
+      - redis
     networks:
       - profilesdashboard-rede
     
-    
+ celery:
+    build: .   
+    command: celery worker --app=profileAuth
+    volumes:
+      - .:/profileAuth
+    depends_on:
+      - django_profiledashboard
+      - redis
+
 
 networks:
   profilesdashboard-rede:

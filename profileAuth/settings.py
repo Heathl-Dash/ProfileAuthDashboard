@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 
     'rest_framework',
+    'drf_yasg',
     'simple_history',
     'django.contrib.sites',
     'allauth',

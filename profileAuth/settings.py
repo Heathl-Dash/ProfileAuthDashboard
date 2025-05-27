@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
+    'rest_framework.authtoken',
 
 ]
 SOCIALACCOUNT_PROVIDERS={
@@ -159,6 +160,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='profileCore.DashboardProfile'
 AUTHENTICATION_BACKENDS=('django.contrib.auth.backends.ModelBackend',
                          'allauth.account.auth_backends.AuthenticationBackend')
+
+REST_USE_JWT = True
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id": "SEU_CLIENT_ID",
+            "secret": "SEU_CLIENT_SECRET",
+            "key": ""
+        },
+        "SCOPE": ["email", "profile"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    }
+}
 
 
 ACCOUNT_USERNAME_REQUIRED = False

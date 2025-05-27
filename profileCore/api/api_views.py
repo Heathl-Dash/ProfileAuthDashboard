@@ -24,6 +24,8 @@ class CheckProfile(APIView):
     def get(self, request, user_id, format=None):
         try:
             user = DashboardProfile.objects.get(id=user_id)
+            if user!=request.user:
+                return Response(status=status.HTTP_403_FORBIDDEN)
             return Response({'exists': True}, status=status.HTTP_200_OK)
         except DashboardProfile.DoesNotExist:
             return Response({'exists': False}, status=status.HTTP_200_OK)

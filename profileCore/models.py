@@ -29,7 +29,6 @@ class DashboardProfile(AbstractUser):
                  (7,'O+'),(8,'O-'))
     name=models.CharField(max_length=144)
     username=None
-    email=models.EmailField(max_length=255,unique=True)
     sex=models.IntegerField(blank=True,null=True,choices=SEX_CHOICES)
     weigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=5)
     heigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=3)

@@ -29,7 +29,6 @@ class DashboardProfile(AbstractUser):
                  (7,'O+'),(8,'O-'))
     name=models.CharField(max_length=144)
     username=None
-    email=models.EmailField(max_length=255,unique=True)
     sex=models.IntegerField(blank=True,null=True,choices=SEX_CHOICES)
     weigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=5)
     heigth=models.DecimalField(blank=True,null=True,decimal_places=2,max_digits=3)
@@ -67,7 +66,7 @@ class DashboardProfile(AbstractUser):
         if self.weigth is None or self.heigth is None:
             return None
         
-        return self.weigth/pow(self.heigth,2)
+        return round(self.weigth/pow(self.heigth,2),2)
 
     
     def class_IMC(self):

@@ -66,7 +66,7 @@ class DashboardProfile(AbstractUser):
         if self.weigth is None or self.heigth is None:
             return None
         
-        return self.weigth/pow(self.heigth,2)
+        return round(self.weigth/pow(self.heigth,2),2)
 
     
     def class_IMC(self):

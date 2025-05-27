@@ -29,3 +29,15 @@ class CheckProfile(APIView):
             return Response({'exists': False}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+class RetrieveProfile(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def get(self, request, format=None):
+        try:
+            user = request.user
+            userserialized=DashboardProfileSerializer(user,many=False)
+            return Response(userserialized.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        

@@ -1,4 +1,4 @@
-from rest_framework.generics import  CreateAPIView,UpdateAPIView
+from rest_framework.generics import  CreateAPIView,UpdateAPIView,DestroyAPIView,RetrieveAPIView
 from rest_framework.views import APIView
 from .serializers import DashboardProfileSerializer,DashboardProfileTokenObtainPairSerializer,DashboardProfileTokenRefreshSerializer,DashboardProfileCreateSerializer
 from ..models import DashboardProfile
@@ -32,14 +32,10 @@ class UpdateDashboardProfile(UpdateAPIView):
 
 
 
-class RetrieveProfile(APIView):
-    def get(self, request, format=None):
-        try:
-            user = request.user
-            userserialized=DashboardProfileSerializer(user,many=False)
-            return Response(userserialized.data, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+class RetrieveProfile(RetrieveAPIView):
+    serializer_class=DashboardProfileSerializer
+    def get_object(self):
+        return self.request.user
     
 class DashboardProfileTokenObtainPairView(TokenObtainPairView):
     serializer_class = DashboardProfileTokenObtainPairSerializer

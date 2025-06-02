@@ -184,9 +184,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+access=int(os.environ.get('ACCESS_TIME',15))
+refresh=int(os.environ.get('REFRESH_TIME',15))
 SIMPLE_JWT={
-    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME':timedelta(days=10),
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=access),
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=refresh),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     

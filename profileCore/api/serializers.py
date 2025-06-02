@@ -6,13 +6,12 @@ from ..models import DashboardProfile
 from django.contrib.auth.password_validation import validate_password
 
 class DashboardProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = DashboardProfile        
         fields = ['id', 'name', 'email', 'password','weigth','heigth','age',
                   'calc_IMC','imc_classification','imc_degree']
         
-        extra_kwargs = {'password': {'write_only': True}}    
+        extra_kwargs = {'password': {'write_only': True},'id':{'read_only': True}}    
 
 class DashboardProfileCreateSerializer(serializers.ModelSerializer):
     password=serializers.CharField(write_only=True,required=True,validators=[validate_password])

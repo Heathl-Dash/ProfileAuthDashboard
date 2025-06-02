@@ -1,4 +1,4 @@
-from rest_framework.generics import  CreateAPIView
+from rest_framework.generics import  CreateAPIView,UpdateAPIView
 from rest_framework.views import APIView
 from .serializers import DashboardProfileSerializer,DashboardProfileTokenObtainPairSerializer,DashboardProfileTokenRefreshSerializer,DashboardProfileCreateSerializer
 from ..models import DashboardProfile
@@ -23,6 +23,14 @@ class CreateDashboardProfile(CreateAPIView):
             'DashboardProfileAccess':str(refresh.access_token),
             'DashboardProfileRefresh':str(refresh),
         },status=status.HTTP_201_CREATED)
+    
+class UpdateDashboardProfile(CreateAPIView):
+    serializer_class=DashboardProfileSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
 
 class RetrieveProfile(APIView):
     def get(self, request, format=None):

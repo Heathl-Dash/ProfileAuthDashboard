@@ -3,6 +3,7 @@ from ..models import DashboardProfile
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer,TokenRefreshSerializer
 from rest_framework import exceptions
 from ..models import DashboardProfile
+from django.contrib.auth.password_validation import validate_password
 
 class DashboardProfileSerializer(serializers.ModelSerializer):
 
@@ -13,6 +14,22 @@ class DashboardProfileSerializer(serializers.ModelSerializer):
         
         extra_kwargs = {'password': {'write_only': True}}    
 
+class DashboardProfileCreateSerializer(serializers.ModelSerializer):
+    password=serializers.CharField(write_only=True,required=True,validators=[validate_password])
+    password2=serializers.CharField(write_only=True,required=True)
+    class Meta:
+        model=DashboardProfile
+        fields = ['name', 'email', 'password','password2','weigth','heigth','age','emergency_phone_number','blood_type']
+    def validate(self, attrs):
+        if attrs['password']!=attrs['password2']:
+            raise serializers.ValidationError('senhas não coincidem')
+        return attrs
+    
+    def create(self, validated_data):
+        validated_data.pop('password2')
+
+        return DashboardProfile.objects.create_user(**validated_data)
+    
 class DashboardProfileTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         authenticate_kwargs={

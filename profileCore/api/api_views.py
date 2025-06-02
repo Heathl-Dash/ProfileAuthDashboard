@@ -24,7 +24,7 @@ class CreateDashboardProfile(CreateAPIView):
             'DashboardProfileRefresh':str(refresh),
         },status=status.HTTP_201_CREATED)
     
-class UpdateDashboardProfile(CreateAPIView):
+class UpdateDashboardProfile(UpdateAPIView):
     serializer_class=DashboardProfileSerializer
 
     def get_object(self):

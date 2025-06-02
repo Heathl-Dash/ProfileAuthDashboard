@@ -30,7 +30,10 @@ class UpdateDashboardProfile(UpdateAPIView):
     def get_object(self):
         return self.request.user
 
-
+class DestroyProfile(DestroyAPIView):
+    serializer_class=DashboardProfileSerializer
+    def get_object(self):
+        return self.request.user
 
 class RetrieveProfile(RetrieveAPIView):
     serializer_class=DashboardProfileSerializer

@@ -1,7 +1,14 @@
 from django.urls import path
 from . import views
-from .api.api_views import (DashboardProfileTokenObtainPairView,DashboardProfileTokenRefreshView,
-                            CheckProfile,RetrieveProfile,CreateDashboardProfile,UpdateDashboardProfile,DestroyProfile)
+from .api.api_views import (
+    DashboardProfileTokenObtainPairView,
+    DashboardProfileTokenRefreshView,
+    CreateDashboardProfile,
+    UpdateDashboardProfile,
+    RetrieveProfile,
+    DestroyProfile,
+    CheckProfile
+)
 
 urlpatterns=[
     path('createprofile/', CreateDashboardProfile.as_view(), name='createprofile'),

@@ -11,8 +11,23 @@ class DashboardProfileAdmin(UserAdmin):
     
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Informações Pessoais', {'fields': ('name', 'sex', 'weigth', 'heigth', 'emergency_phone_number', 'blood_type', 'points', 'age')}),
-        ('Permissões', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Informações Pessoais', {'fields': (
+            'name', 
+            'sex', 
+            'weigth', 
+            'heigth', 
+            'emergency_phone_number', 
+            'blood_type', 
+            'points', 
+            'age'
+        )}),
+        ('Permissões', {'fields': (
+            'is_active', 
+            'is_staff', 
+            'is_superuser', 
+            'groups', 
+            'user_permissions'
+        )}),
     )
     add_fieldsets = (
         (None, {

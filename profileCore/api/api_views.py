@@ -1,6 +1,15 @@
-from rest_framework.generics import  CreateAPIView,UpdateAPIView,DestroyAPIView,RetrieveAPIView
+from rest_framework.generics import  (
+    CreateAPIView, UpdateAPIView, 
+    DestroyAPIView, 
+    RetrieveAPIView
+)
 from rest_framework.views import APIView
-from .serializers import DashboardProfileSerializer,DashboardProfileTokenObtainPairSerializer,DashboardProfileTokenRefreshSerializer,DashboardProfileCreateSerializer
+from .serializers import (
+    DashboardProfileSerializer,
+    DashboardProfileTokenObtainPairSerializer,
+    DashboardProfileTokenRefreshSerializer,
+    DashboardProfileCreateSerializer
+)
 from ..models import DashboardProfile
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response

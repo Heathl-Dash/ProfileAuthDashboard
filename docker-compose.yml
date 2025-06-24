@@ -2,7 +2,12 @@ version: '3.7'
 
 services:
   profilesdashboard-db:
-    image: postgres:17.5
+    build:
+      context: ./dbBackup
+    volumes:
+      - ./backups:/backups
+    environment:
+      - TZ=America/Sao_Paulo
     env_file: .env
     ports:
       - 5432:5432

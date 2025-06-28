@@ -1,0 +1,13 @@
+POSTGRES_USER=AUserName
+POSTGRES_PASSWORD=APassword
+POSTGRES_DB=ANameForDB
+DB_ENGINE=DatabaseStringConnection
+DB_PORT=5432
+SECRETJWT=AKeyWordForJWT
+ACCESS_TIME=5 (a number of minutes)
+REFRESH_TIME=1 (a number of days)
+
+RABBITMQ_DEFAULT_HOST=docker-compose-service-name
+RABBITMQ_DEFAULT_USER=rabbit-username
+RABBITMQ_DEFAULT_PASS=rabbit-password
+RABBITMQ_DEFAULT_VHOST=/something

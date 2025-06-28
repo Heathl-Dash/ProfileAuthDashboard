@@ -56,6 +56,9 @@ services:
       - "15682:15672"
     networks:
       - profilesdashboard-rede
+      - rabbit-MQ-extern-network
 networks:
   profilesdashboard-rede:
     driver: bridge
+  rabbit-MQ-extern-network:
+    external: true

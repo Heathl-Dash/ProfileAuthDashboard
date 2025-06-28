@@ -23,21 +23,29 @@ def __get_connection_and_channel():
     return connection,channel
 
 
-def delete_user_publish_event(user_id):
-    conn,chan=__get_connection_and_channel()
-    queue_name='user.deleted'
 
-    chan.queue_declare(queue=queue_name,durable=True)
-    message=json.dumps({'user_id':user_id})
+def __add_to_queue(queue_name:str,delivery_mode:int,message_dict:dict={},durable:bool=True,exchange:str=''):
+    conn,chan=__get_connection_and_channel()
+    chan.queue_declare(queue=queue_name,durable=durable)
+    message=json.dumps(message_dict)
     chan.basic_publish(
-        exchange='',
+        exchange=exchange,
         routing_key=queue_name,
         body=message,
         properties=pika.BasicProperties(
-            delivery_mode=2
+            delivery_mode=delivery_mode
         )
     )
 
     #sempre fechar conexão
     conn.close()
+
+def delete_user_publish_event(user_id):
+    message_dict={'user_id':user_id}
+    queue_name='user.deleted'
+    delivery_mode=2
+    __add_to_queue(queue_name,delivery_mode,message_dict)
+    
+
+    
     

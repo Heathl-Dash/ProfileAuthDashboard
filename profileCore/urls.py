@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .api.api_views import (
     DashboardProfileTokenObtainPairView,
@@ -19,4 +19,7 @@ urlpatterns=[
     path('token/', DashboardProfileTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', DashboardProfileTokenRefreshView.as_view(), name='token_refresh'),
     path('logout',views.logout,name='logout'),
+    path('accounts/', include('allauth.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 ]

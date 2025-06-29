@@ -41,7 +41,24 @@ services:
       - profilesdashboard-rede
     
     
-
+  rabbitMQ-profile-events:
+    image: rabbitmq:3-management
+    container_name: rabbit-dashboard
+    hostname: rabbit-dash
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+    ports:
+      - "5682:5672"
+      - "15682:15672"
+    networks:
+      - profilesdashboard-rede
+      - rabbit-MQ-extern-network
 networks:
   profilesdashboard-rede:
     driver: bridge
+  rabbit-MQ-extern-network:
+    external: true

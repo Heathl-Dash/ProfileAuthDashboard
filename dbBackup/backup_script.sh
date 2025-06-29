@@ -1,5 +1,4 @@
 #!/bin/bash
-
 BACKUP_DIR="/backups"
 DATE=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="$BACKUP_DIR/full_backup_${POSTGRES_DB}_${DATE}.sql"

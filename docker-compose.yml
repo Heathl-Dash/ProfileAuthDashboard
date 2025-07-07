@@ -59,6 +59,7 @@ services:
       - rabbit-MQ-extern-network
 networks:
   profilesdashboard-rede:
-    driver: bridge
+    external: true
+    name: profilesdashboard-rede
   rabbit-MQ-extern-network:
     external: true

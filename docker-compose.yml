@@ -39,6 +39,7 @@ services:
       - profilesdashboard-db
     networks:
       - profilesdashboard-rede
+      - rabbit-MQ-extern-network
     
     
   rabbitMQ-profile-events:

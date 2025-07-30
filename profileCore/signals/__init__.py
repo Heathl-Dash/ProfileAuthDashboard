@@ -4,4 +4,3 @@ __all__=[
     create_weigth_history_after_profile_update,
     post_user_delete
 ]
-

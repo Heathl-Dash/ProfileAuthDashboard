@@ -1,4 +1,3 @@
-
 from rest_framework import filters, viewsets
 
 from ..models import WeigthHistory
@@ -9,11 +8,11 @@ from rest_framework.exceptions import PermissionDenied
 class WeigthHistoryViewSet(viewsets.ModelViewSet):
     queryset = WeigthHistory.objects.all()
     serializer_class = WeigthHistorySerializer
-    http_method_names=['get']
+    http_method_names = ["get"]
     filter_backends = [filters.SearchFilter]
 
     def get_queryset(self):
-        profile=self.request.user
+        profile = self.request.user
         return WeigthHistory.objects.filter(profile=profile)
 
     def get_object(self):

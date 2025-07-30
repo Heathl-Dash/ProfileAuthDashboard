@@ -49,7 +49,9 @@ jobs:
 
 
     - name: redes para o docker
-      run: docker network create profilesdashboard-rede
+      run: |
+        docker network create rabbit-MQ-extern-network
+        docker network create profilesdashboard-rede
 
 
     - name: build docker

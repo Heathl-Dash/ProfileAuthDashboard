@@ -49,8 +49,7 @@ jobs:
 
 
     - name: redes para o docker
-      run: |
-        run: docker network create profilesdashboard-rede
+      run: docker network create profilesdashboard-rede
 
 
     - name: build docker

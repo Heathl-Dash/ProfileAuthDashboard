@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import DashboardProfile
+from .models import WeigthHistory
 from django.contrib.auth.admin import UserAdmin
 
+
 admin.site.register(DashboardProfile.history.model)
+admin.site.register(WeigthHistory)
 @admin.register(DashboardProfile)
 class DashboardProfileAdmin(UserAdmin):
     list_display = ('email', 'name', 'is_staff')

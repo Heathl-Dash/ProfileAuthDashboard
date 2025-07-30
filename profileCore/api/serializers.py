@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import DashboardProfile
+from ..models.allergy import DashboardProfile
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer,TokenRefreshSerializer
 from rest_framework import exceptions
 from ..models import DashboardProfile

@@ -1,14 +1,22 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
-from .api.api_views import (
+from .viewsets import (
     DashboardProfileTokenObtainPairView,
     DashboardProfileTokenRefreshView,
     CreateDashboardProfile,
     UpdateDashboardProfile,
     RetrieveProfile,
     DestroyProfile,
-    CheckProfile
+    CheckProfile,
+    WeigthHistoryViewSet
 )
+
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+
+router.register(r'weigth-history', WeigthHistoryViewSet, basename='weigth-history')
 
 urlpatterns=[
     path('createprofile/', CreateDashboardProfile.as_view(), name='createprofile'),
@@ -19,4 +27,5 @@ urlpatterns=[
     path('token/', DashboardProfileTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', DashboardProfileTokenRefreshView.as_view(), name='token_refresh'),
     path('logout',views.logout,name='logout'),
+    path("", include(router.urls)),
 ]

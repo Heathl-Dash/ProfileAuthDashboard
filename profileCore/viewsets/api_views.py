@@ -4,7 +4,7 @@ from rest_framework.generics import  (
     RetrieveAPIView
 )
 from rest_framework.views import APIView
-from .serializers import (
+from ..serializers.serializers import (
     DashboardProfileSerializer,
     DashboardProfileTokenObtainPairSerializer,
     DashboardProfileTokenRefreshSerializer,

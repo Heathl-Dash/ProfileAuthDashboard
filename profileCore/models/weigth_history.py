@@ -12,3 +12,6 @@ class WeigthHistory(models.Model):
     def __str__(self):
         formated_date = self.created_at.strftime('%d/%m/%y')
         return f"{self.profile.name}: {self.weigth}kg em {formated_date}"
+    
+    class Meta:
+        ordering = ['-created_at']

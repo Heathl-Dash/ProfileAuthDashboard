@@ -53,6 +53,9 @@ jobs:
         docker network create rabbit-MQ-extern-network
         docker network create profilesdashboard-rede
 
+    - name: Garantir pasta backups com permissões
+      run: mkdir -p backups && chmod -R 777 backups
+
 
     - name: build docker
       run: docker compose up --build -d --wait

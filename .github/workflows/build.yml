@@ -60,8 +60,8 @@ jobs:
     - name: Obter logs do DB se a inicialização falhou
       if: failure()
       run: |
-        echo "Iniciando coleta de logs do fitdashboard-db..."
-        docker compose logs fitdashboard-db
+        echo "Iniciando coleta de logs do profilesdashboard-db..."
+        docker compose logs profilesdashboard-db
         echo "Coleta de logs concluída."
 
     - name: Parar e remover Docker Compose

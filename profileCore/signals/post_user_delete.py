@@ -6,6 +6,6 @@ from profileAuth.amqp.publisher import delete_user_publish_exchange
 
 @receiver(post_delete, sender=DashboardProfile)
 def post_user_delete(sender, instance, **kwargs):
-    user_id=instance.id
+    user_id = instance.id
     if user_id:
         delete_user_publish_exchange(user_id)

@@ -50,8 +50,7 @@ jobs:
 
     - name: redes para o docker
       run: |
-        docker swarm init
-        docker network profilesdashboard-rede || true
+        run: docker network create profilesdashboard-rede
 
 
     - name: build docker

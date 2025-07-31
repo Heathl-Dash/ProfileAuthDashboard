@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
-from profileCore.materialized_views import base  
+from profileCore.materialized_views import base
 import importlib
 import pkgutil
 import profileCore.materialized_views as mvs

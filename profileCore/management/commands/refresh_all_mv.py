@@ -6,13 +6,14 @@ import importlib
 import pkgutil
 import profileCore.materialized_views as mvs
 
+
 def load_all_views():
     for _, module_name, _ in pkgutil.iter_modules(mvs.__path__):
         importlib.import_module(f"{mvs.__name__}.{module_name}")
 
+
 class Command(BaseCommand):
     help = 'Atualiza todas as materialized views registradas.'
-
 
     def add_arguments(self, parser):
         parser.add_argument('--only', type=str, help='Atualiza apenas a view especificada')

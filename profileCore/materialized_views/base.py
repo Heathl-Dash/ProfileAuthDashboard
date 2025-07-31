@@ -1,5 +1,6 @@
 MV_REGISTRY={}
 
+
 class MaterializedView:
     view_name=None
     sql=None

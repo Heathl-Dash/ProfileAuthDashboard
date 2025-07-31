@@ -17,6 +17,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         load__all_mviews()
         for name,mv in base.MV_REGISTRY.items():
-            with connection.cursor as cursor:
+            with connection.cursor() as cursor:
                 cursor.execute(mv.sql)
             self.stdout.write(f'Materialized View {name} criada com sucesso.')

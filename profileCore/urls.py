@@ -19,7 +19,6 @@ router = DefaultRouter()
 
 router.register(r"weigth-history", WeigthHistoryViewSet, basename="weigth-history")
 router.register(r"weigth-month", WeigthMonthViewSet, basename="weigth-month")
-router.register(r"google-login", GoogleAuthView, basename="google-login")
 
 urlpatterns = [
     path("createprofile/", CreateDashboardProfile.as_view(), name="createprofile"),
@@ -27,6 +26,7 @@ urlpatterns = [
     path("destroyprofile/", DestroyProfile.as_view(), name="destroyprofile"),
     path("updateprofile/", UpdateDashboardProfile.as_view(), name="updateprofile"),
     path("checkprofile/<int:user_id>/", CheckProfile.as_view(), name="checkprofile"),
+    path('googlelogin/',GoogleAuthView.as_view(),name='googlelogin'),
     path(
         "token/",
         DashboardProfileTokenObtainPairView.as_view(),

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from . import views
+from .views import logout_view
 from .viewsets import (
     DashboardProfileTokenObtainPairView,
     DashboardProfileTokenRefreshView,
@@ -37,6 +37,6 @@ urlpatterns = [
         DashboardProfileTokenRefreshView.as_view(),
         name="token_refresh",
     ),
-    path("logout", views.logout, name="logout"),
+    path("logout", logout_view, name="logout"),
     path("", include(router.urls)),
 ]

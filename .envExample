@@ -6,6 +6,8 @@ DB_PORT=5432
 SECRETJWT=AKeyWordForJWT
 ACCESS_TIME=5 (a number of minutes)
 REFRESH_TIME=1 (a number of days)
+GOOGLE_OAUTH_TOKEN=token
+
 
 RABBITMQ_DEFAULT_HOST=docker-compose-service-name
 RABBITMQ_DEFAULT_USER=rabbit-username

@@ -11,7 +11,7 @@ from .viewsets import (
     WeigthHistoryViewSet,
     WeigthMonthViewSet
 )
-
+from .views import GoogleAuthView
 
 from rest_framework.routers import DefaultRouter
 
@@ -19,6 +19,7 @@ router = DefaultRouter()
 
 router.register(r"weigth-history", WeigthHistoryViewSet, basename="weigth-history")
 router.register(r"weigth-month", WeigthMonthViewSet, basename="weigth-month")
+router.register(r"google-login", WeigthMonthViewSet, basename="google-login")
 
 urlpatterns = [
     path("createprofile/", CreateDashboardProfile.as_view(), name="createprofile"),

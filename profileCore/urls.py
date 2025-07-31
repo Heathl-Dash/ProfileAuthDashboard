@@ -19,7 +19,7 @@ router = DefaultRouter()
 
 router.register(r"weigth-history", WeigthHistoryViewSet, basename="weigth-history")
 router.register(r"weigth-month", WeigthMonthViewSet, basename="weigth-month")
-router.register(r"google-login", WeigthMonthViewSet, basename="google-login")
+router.register(r"google-login", GoogleAuthView, basename="google-login")
 
 urlpatterns = [
     path("createprofile/", CreateDashboardProfile.as_view(), name="createprofile"),

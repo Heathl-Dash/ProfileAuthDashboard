@@ -6,6 +6,7 @@ from .api_views import (CreateDashboardProfile,
                         DashboardProfileTokenRefreshView,
                         CheckProfile)
 from .weigth_history_viewset import WeigthHistoryViewSet
+from .weigth_month_viewset import WeigthMonthViewSet
 
 
 __all=[
@@ -16,5 +17,6 @@ __all=[
     DashboardProfileTokenObtainPairView,
     DashboardProfileTokenRefreshView,
     CheckProfile,
-    WeigthHistoryViewSet
+    WeigthHistoryViewSet,
+    WeigthMonthViewSet
 ]

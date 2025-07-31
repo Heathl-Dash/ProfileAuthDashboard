@@ -9,6 +9,7 @@ from .viewsets import (
     DestroyProfile,
     CheckProfile,
     WeigthHistoryViewSet,
+    WeigthMonthViewSet
 )
 
 
@@ -17,6 +18,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register(r"weigth-history", WeigthHistoryViewSet, basename="weigth-history")
+router.register(r"weigth-month", WeigthMonthViewSet, basename="weigth-month")
 
 urlpatterns = [
     path("createprofile/", CreateDashboardProfile.as_view(), name="createprofile"),

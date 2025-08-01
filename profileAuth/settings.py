@@ -54,8 +54,15 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
 ]
 SOCIALACCOUNT_PROVIDERS = {
-    "google": {"SCOPE": ["profile", "email"], "AUTH_PARAMS": {"access_type": "online"}}
+    "google": {
+        "SCOPE": ["profile", "email", "openid"],
+        "AUTH_PARAMS": {"access_type": "offline"},
+        'OAUTH_PKCE_ENABLED': True,
+    }
 }
+
+SOCIALACCOUNT_STORE_TOKENS = True
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -155,9 +162,9 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*"]
 
 
 LOGIN_REDIRECT_URL = "/"
@@ -165,6 +172,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        'rest_framework.authentication.SessionAuthentication',
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),

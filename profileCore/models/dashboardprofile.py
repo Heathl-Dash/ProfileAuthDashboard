@@ -1,5 +1,8 @@
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager
+)
 from simple_history.models import HistoricalRecords
 from django.db import models
 
@@ -21,7 +24,7 @@ class DashboardProfileManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class DashboardProfile(AbstractUser):
+class DashboardProfile(AbstractBaseUser, PermissionsMixin):
     SEX_CHOICES = ((1, "F"), (2, "M"))
 
     BLOOD_TYPES = (
@@ -36,6 +39,9 @@ class DashboardProfile(AbstractUser):
     )
     name = models.CharField(max_length=144)
     username = None
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    email = models.EmailField(unique=True)
     sex = models.IntegerField(blank=True, null=True, choices=SEX_CHOICES)
     weigth = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=5)
     heigth = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=3)

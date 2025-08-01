@@ -1,5 +1,5 @@
 from django.urls import path, include
-from . import views
+from .views import logout_view
 from .viewsets import (
     DashboardProfileTokenObtainPairView,
     DashboardProfileTokenRefreshView,
@@ -11,7 +11,7 @@ from .viewsets import (
     WeigthHistoryViewSet,
     WeigthMonthViewSet
 )
-
+from .views import GoogleAuthView
 
 from rest_framework.routers import DefaultRouter
 
@@ -26,6 +26,7 @@ urlpatterns = [
     path("destroyprofile/", DestroyProfile.as_view(), name="destroyprofile"),
     path("updateprofile/", UpdateDashboardProfile.as_view(), name="updateprofile"),
     path("checkprofile/<int:user_id>/", CheckProfile.as_view(), name="checkprofile"),
+    path('googlelogin/',GoogleAuthView.as_view(),name='googlelogin'),
     path(
         "token/",
         DashboardProfileTokenObtainPairView.as_view(),
@@ -36,6 +37,6 @@ urlpatterns = [
         DashboardProfileTokenRefreshView.as_view(),
         name="token_refresh",
     ),
-    path("logout", views.logout, name="logout"),
+    path("logout", logout_view, name="logout"),
     path("", include(router.urls)),
 ]

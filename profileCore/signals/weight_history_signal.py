@@ -8,7 +8,6 @@ from ..models import WeigthHistory, DashboardProfile
 def create_weigth_history_after_profile_update(sender, instance, **kwargs):
     """Realiza ações após a model NomeDaSuaModel ser salva."""
     if not instance.pk:
-        create_weigth_history(profile=instance)
         return
     else:
         try:

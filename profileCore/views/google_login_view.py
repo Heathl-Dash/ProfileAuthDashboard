@@ -12,8 +12,10 @@ from rest_framework.permissions import AllowAny
 
 User = get_user_model()
 
+
 class GoogleAuthView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request):
         token = request.data.get("token")
         if not token:
@@ -37,7 +39,6 @@ class GoogleAuthView(APIView):
                     "password": get_random_string(64),
                 }
             )
-
 
             refresh = RefreshToken.for_user(user)
             print(str(refresh.access_token))

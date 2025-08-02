@@ -20,7 +20,7 @@ services:
     volumes:
       - .:/profileAuth
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
       - rabbit-MQ-extern-network
     
     
@@ -38,8 +38,7 @@ services:
     networks:
       - rabbit-MQ-extern-network
 networks:
-  profilesdashboard-rede:
+  gateway-shared-net:
     external: true
-    name: profilesdashboard-rede
   rabbit-MQ-extern-network:
     external: true

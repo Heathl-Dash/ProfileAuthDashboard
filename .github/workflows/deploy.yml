@@ -21,6 +21,7 @@ jobs:
             cd /home/ubuntu/repos/ProfileAuthDashboard
             git pull origin main
 
+            export DB_ENGINE=django.db.backends.postgresql
             export DB_HOST=${{ secrets.DB_HOST }} \
             export POSTGRES_HOST=${{ secrets.DB_HOST }} \
 

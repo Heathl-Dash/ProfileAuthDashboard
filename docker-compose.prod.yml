@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  django_profiledashboard:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py create_all_mv && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=${secrets.POSTGRES_HOST}
+      - DB_NAME=${secrets.POSTGRES_DB}
+      - DB_PASSWORD=${secrets.POSTGRES_PASSWORD}
+      - DB_USER=${secrets.POSTGRES_USER}
+      - DB_PORT=${secrets.DB_PORT}
+      - RABBITMQ_DEFAULT_USER=${secrets.RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${secrets.RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${secrets.RABBITMQ_DEFAULT_VHOST}
+
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/profileAuth
+    networks:
+      - profilesdashboard-rede
+      - rabbit-MQ-extern-network
+    
+    
+  rabbitMQ-profile-events:
+    image: rabbitmq:3-management
+    container_name: rabbit-dashboard
+    hostname: rabbit-dash
+    environment:
+      - RABBITMQ_DEFAULT_USER=${secrets.RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${secrets.RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${secrets.RABBITMQ_DEFAULT_VHOST}
+    ports:
+      - "5682:5672"
+      - "15682:15672"
+    networks:
+      - rabbit-MQ-extern-network
+networks:
+  profilesdashboard-rede:
+    external: true
+    name: profilesdashboard-rede
+  rabbit-MQ-extern-network:
+    external: true

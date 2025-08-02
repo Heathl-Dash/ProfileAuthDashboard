@@ -1,0 +1,39 @@
+name: CD - Deploy para produção
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/build.yml
+
+  deploy:
+    needs: run-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{secrets.EC2_USER}}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST
+          script: |
+            cd /home/ubuntu/repos/profilesdashboard
+            git pull origin main
+
+            DB_HOST=${{ secrets.DB_HOST }} \
+            DB_NAME=${{ secrets.DB_NAME }} \
+            DB_USER=${{ secrets.DB_USER }} \
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            DB_PORT=${{ secrets.DB_PORT }} \
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+            SECRETJWT=${{ secrets.SECRETJWT }} \
+            ACCESS_TIME=${{ secrets.ACCESS_TIME }} \
+            REFRESH_TIME=${{ secrets.REFRESH_TIME }} \
+            RABBITMQ_DEFAULT_USER=${{ secrets.RABBITMQ_DEFAULT_USER }} \
+            RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }} \
+            RABBITMQ_DEFAULT_VHOST=${{ secrets.RABBITMQ_DEFAULT_VHOST }} \
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build

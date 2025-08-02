@@ -12,7 +12,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -38,7 +38,7 @@ services:
     depends_on:
       - profilesdashboard-db
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
       - rabbit-MQ-extern-network
     
     
@@ -56,11 +56,10 @@ services:
       - "5682:5672"
       - "15682:15672"
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
       - rabbit-MQ-extern-network
 networks:
-  profilesdashboard-rede:
+  gateway-shared-net:
     external: true
-    name: profilesdashboard-rede
   rabbit-MQ-extern-network:
     external: true

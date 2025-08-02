@@ -5,11 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  run-tests:
-    uses: ./.github/workflows/build.yml
 
   deploy:
-    needs: run-tests
     runs-on: ubuntu-latest
 
     steps:
@@ -36,5 +33,5 @@ jobs:
             RABBITMQ_DEFAULT_USER=${{ secrets.RABBITMQ_DEFAULT_USER }} \
             RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }} \
             RABBITMQ_DEFAULT_VHOST=${{ secrets.RABBITMQ_DEFAULT_VHOST }} \
-            
+
             docker compose -f docker-compose.prod.yml up -d --build

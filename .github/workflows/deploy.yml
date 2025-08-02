@@ -21,17 +21,17 @@ jobs:
             cd /home/ubuntu/repos/ProfileAuthDashboard
             git pull origin main
 
-            DB_HOST=${{ secrets.DB_HOST }} \
-            DB_NAME=${{ secrets.DB_NAME }} \
-            DB_USER=${{ secrets.DB_USER }} \
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            DB_PORT=${{ secrets.DB_PORT }} \
-            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
-            SECRETJWT=${{ secrets.SECRETJWT }} \
-            ACCESS_TIME=${{ secrets.ACCESS_TIME }} \
-            REFRESH_TIME=${{ secrets.REFRESH_TIME }} \
-            RABBITMQ_DEFAULT_USER=${{ secrets.RABBITMQ_DEFAULT_USER }} \
-            RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }} \
-            RABBITMQ_DEFAULT_VHOST=${{ secrets.RABBITMQ_DEFAULT_VHOST }} \
+            export DB_HOST=${{ secrets.DB_HOST }} \
+            export DB_NAME=${{ secrets.DB_NAME }} \
+            export DB_USER=${{ secrets.DB_USER }} \
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            export DB_PORT=${{ secrets.DB_PORT }} \
+            export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+            export SECRETJWT=${{ secrets.SECRETJWT }} \
+            export ACCESS_TIME=${{ secrets.ACCESS_TIME }} \
+            export REFRESH_TIME=${{ secrets.REFRESH_TIME }} \
+            export RABBITMQ_DEFAULT_USER=${{ secrets.RABBITMQ_DEFAULT_USER }} \
+            export RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }} \
+            export RABBITMQ_DEFAULT_VHOST=${{ secrets.RABBITMQ_DEFAULT_VHOST }} \
 
             docker-compose -f docker-compose.prod.yml up -d --build

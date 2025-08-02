@@ -6,11 +6,11 @@ services:
     build: .
     command: sh -c "python manage.py migrate && python manage.py create_all_mv && python manage.py runserver 0.0.0.0:8000"
     environment:
-      - DB_HOST=${secrets.POSTGRES_HOST}
-      - DB_NAME=${secrets.POSTGRES_DB}
-      - DB_PASSWORD=${secrets.POSTGRES_PASSWORD}
-      - DB_USER=${secrets.POSTGRES_USER}
-      - DB_PORT=${secrets.DB_PORT}
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_NAME=${POSTGRES_DB}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PORT=${DB_PORT}
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}

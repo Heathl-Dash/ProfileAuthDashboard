@@ -51,7 +51,7 @@ jobs:
     - name: redes para o docker
       run: |
         docker network create rabbit-MQ-extern-network
-        docker network create profilesdashboard-rede
+        docker network create gateway-shared-net
 
     - name: Garantir pasta backups com permissões
       run: mkdir -p backups && chmod -R 777 backups

@@ -8,15 +8,10 @@ docker network create rabbit-MQ-extern-network
 ```
 
 ## criar rede externa
+essa rede deve ser criada antes de qualquer um dos serviços, pois os conecta ao nginx
 
-iniciar o docker swarm para utilizar networks de overlay
 ```bash
-docker swarm init
-```
-
-criar network externa de overlay
-```bash
-docker network create --driver overlay --attachable profilesdashboard-rede
+docker network create gateway-shared-net
 ```
 ## docker-compose build
 para iniciar o processo de construção do sistema basta usar 

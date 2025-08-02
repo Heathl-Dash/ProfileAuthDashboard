@@ -1,13 +1,42 @@
-from django.urls import path
-from . import views
-from .api.api_views import (ProfileApiView,DashboardProfileTokenObtainPairView,DashboardProfileTokenRefreshView,
-                            CheckProfile,RetrieveProfile)
+from django.urls import path, include
+from .views import logout_view
+from .viewsets import (
+    DashboardProfileTokenObtainPairView,
+    DashboardProfileTokenRefreshView,
+    CreateDashboardProfile,
+    UpdateDashboardProfile,
+    RetrieveProfile,
+    DestroyProfile,
+    CheckProfile,
+    WeigthHistoryViewSet,
+    WeigthMonthViewSet
+)
+from .views import GoogleAuthView
 
-urlpatterns=[
-    path('profile_api',ProfileApiView.as_view(),name='profile_api'),
-    path('retrieveprofile/', RetrieveProfile.as_view(), name='retireveprofile'),
-    path('checkprofile/<int:user_id>/', CheckProfile.as_view(), name='checkprofile'),
-    path('token/', DashboardProfileTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', DashboardProfileTokenRefreshView.as_view(), name='token_refresh'),
-    path('logout',views.logout,name='logout'),
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+
+router.register(r"weigth-history", WeigthHistoryViewSet, basename="weigth-history")
+router.register(r"weigth-month", WeigthMonthViewSet, basename="weigth-month")
+
+urlpatterns = [
+    path("createprofile/", CreateDashboardProfile.as_view(), name="createprofile"),
+    path("retrieveprofile/", RetrieveProfile.as_view(), name="retireveprofile"),
+    path("destroyprofile/", DestroyProfile.as_view(), name="destroyprofile"),
+    path("updateprofile/", UpdateDashboardProfile.as_view(), name="updateprofile"),
+    path("checkprofile/<int:user_id>/", CheckProfile.as_view(), name="checkprofile"),
+    path('googlelogin/',GoogleAuthView.as_view(),name='googlelogin'),
+    path(
+        "token/",
+        DashboardProfileTokenObtainPairView.as_view(),
+        name="token_obtain_pair",
+    ),
+    path(
+        "token/refresh/",
+        DashboardProfileTokenRefreshView.as_view(),
+        name="token_refresh",
+    ),
+    path("logout", logout_view, name="logout"),
+    path("", include(router.urls)),
 ]

@@ -2,12 +2,17 @@ version: '3.7'
 
 services:
   profilesdashboard-db:
-    image: postgres:17.5
+    build:
+      context: ./dbBackup
+    volumes:
+      - ./backups:/backups
+    environment:
+      - TZ=America/Sao_Paulo
     env_file: .env
     ports:
       - 5432:5432
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -17,7 +22,7 @@ services:
 
   django_profiledashboard:
     build: .
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py create_all_mv && python manage.py runserver 0.0.0.0:8000"
     env_file: .env
     environment:
       - DB_HOST=profilesdashboard-db
@@ -33,10 +38,28 @@ services:
     depends_on:
       - profilesdashboard-db
     networks:
-      - profilesdashboard-rede
+      - gateway-shared-net
+      - rabbit-MQ-extern-network
     
     
-
+  rabbitMQ-profile-events:
+    image: rabbitmq:3-management
+    container_name: rabbit-dashboard
+    hostname: rabbit-dash
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+    ports:
+      - "5682:5672"
+      - "15682:15672"
+    networks:
+      - gateway-shared-net
+      - rabbit-MQ-extern-network
 networks:
-  profilesdashboard-rede:
-    driver: bridge
+  gateway-shared-net:
+    external: true
+  rabbit-MQ-extern-network:
+    external: true

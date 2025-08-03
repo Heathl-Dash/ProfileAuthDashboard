@@ -27,9 +27,11 @@ services:
     environment:
       - DB_HOST=profilesdashboard-db
       - DB_NAME=${POSTGRES_DB}
+      - DB_ENGINE=django.db.backends.postgresql
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_USER=${POSTGRES_USER}
       - DB_PORT=${DB_PORT}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
 
     ports:
       - 8000:8000

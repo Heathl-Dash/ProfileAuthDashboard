@@ -31,6 +31,7 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_USER=${POSTGRES_USER}
       - DB_PORT=${DB_PORT}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
 
     ports:
       - 8000:8000

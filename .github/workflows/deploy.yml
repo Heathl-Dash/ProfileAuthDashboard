@@ -16,7 +16,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{secrets.EC2_USER}}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST,ALLOWED_HOSTS,DB_ENGINE
+          envs: DEBUG,DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST,ALLOWED_HOSTS,DB_ENGINE
           script: |
             cd /home/ubuntu/repos/ProfileAuthDashboard
             git pull origin main
@@ -44,6 +44,6 @@ jobs:
             export RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }} \
             export RABBITMQ_DEFAULT_VHOST=${{ secrets.RABBITMQ_DEFAULT_VHOST }} \
             export RABBITMQ_DEFAULT_PORT=${secrets.RABBITMQ_DEFAULT_PORT}
-            export DEBUG=${{DEBUG}}
+            export DEBUG=${{secrets.DEBUG}}
 
             docker-compose -f docker-compose.prod.yml up -d --build

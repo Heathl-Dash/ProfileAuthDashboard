@@ -6,7 +6,7 @@ RABBITMQ_DEFAULT_HOST = os.getenv("RABBITMQ_DEFAULT_HOST")
 RABBITMQ_DEFAULT_USER = os.getenv("RABBITMQ_DEFAULT_USER")
 RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
 RABBITMQ_DEFAULT_VHOST = os.getenv("RABBITMQ_DEFAULT_VHOST")
-
+RABBITMQ_DEFAULT_PORT = os.getenv("RABBITMQ_DEFAULT_PORT")
 
 def __get_connection_and_channel():
     """devolve a conexão com o rabbitMQ e o canal de comunicação, a conexão
@@ -14,6 +14,7 @@ def __get_connection_and_channel():
     credentials = pika.PlainCredentials(RABBITMQ_DEFAULT_USER, RABBITMQ_DEFAULT_PASS)
     parameters = pika.ConnectionParameters(
         host=RABBITMQ_DEFAULT_HOST,
+        port=int(RABBITMQ_DEFAULT_PORT),
         virtual_host=RABBITMQ_DEFAULT_VHOST,
         credentials=credentials,
     )
@@ -66,6 +67,11 @@ def delete_user_publish_event(user_id):
 
 
 def delete_user_publish_exchange(user_id):
-    message_dict = {"user_id": user_id}
+    message_dict = {"user_id": user_id,'event':'delete'}
+    exchange_name = "user.events"
+    __add_to_exchange(exchange_name, message_dict)
+
+def create_user_publish_exchange(user_id,weight=None):
+    message_dict = {"user_id": user_id,'event':'create',"weight":weight}
     exchange_name = "user.events"
     __add_to_exchange(exchange_name, message_dict)

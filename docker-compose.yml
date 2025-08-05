@@ -55,8 +55,8 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
     ports:
-      - "5682:5672"
-      - "15682:15672"
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - gateway-shared-net
       - rabbit-MQ-extern-network

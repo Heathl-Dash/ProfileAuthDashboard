@@ -2,21 +2,18 @@ import pika
 import json
 import os
 
-
+RABBITMQ_DEFAULT_HOST = os.getenv("RABBITMQ_DEFAULT_HOST")
+RABBITMQ_DEFAULT_USER = os.getenv("RABBITMQ_DEFAULT_USER")
+RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
+RABBITMQ_DEFAULT_VHOST = os.getenv("RABBITMQ_DEFAULT_VHOST")
 def __get_connection_and_channel():
-    RABBITMQ_DEFAULT_HOST = os.getenv("RABBITMQ_DEFAULT_HOST")
-    RABBITMQ_DEFAULT_USER = os.getenv("RABBITMQ_DEFAULT_USER")
-    RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
-    RABBITMQ_DEFAULT_VHOST = os.getenv("RABBITMQ_DEFAULT_VHOST")
-    RABBITMQ_DEFAULT_PORT = os.getenv("RABBITMQ_DEFAULT_PORT")
+    
 
-    print(RABBITMQ_DEFAULT_PORT)
     """devolve a conexão com o rabbitMQ e o canal de comunicação, a conexão
     sempre deve ser fechada no final do seu uso"""
     credentials = pika.PlainCredentials(RABBITMQ_DEFAULT_USER, RABBITMQ_DEFAULT_PASS)
     parameters = pika.ConnectionParameters(
         host=RABBITMQ_DEFAULT_HOST,
-        port=int(RABBITMQ_DEFAULT_PORT),
         virtual_host=RABBITMQ_DEFAULT_VHOST,
         credentials=credentials,
     )
@@ -71,6 +68,7 @@ def delete_user_publish_event(user_id):
 def delete_user_publish_exchange(user_id):
     message_dict = {"user_id": user_id,'event':'delete'}
     exchange_name = "user.events"
+    print(RABBITMQ_DEFAULT_HOST)
     __add_to_exchange(exchange_name, message_dict)
 
 def create_user_publish_exchange(user_id,weight=None):

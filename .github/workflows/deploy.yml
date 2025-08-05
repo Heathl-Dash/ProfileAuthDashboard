@@ -16,7 +16,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{secrets.EC2_USER}}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: DEBUG,DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST,ALLOWED_HOSTS,DB_ENGINE
+          envs: RABBITMQ_DEFAULT_PORT,DEBUG,DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST,ALLOWED_HOSTS,DB_ENGINE
           script: |
             cd /home/ubuntu/repos/ProfileAuthDashboard
             git pull origin main

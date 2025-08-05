@@ -7,19 +7,6 @@ services:
     env_file:
       - .env.prod
     command: sh -c "python manage.py migrate && python manage.py create_all_mv && python manage.py runserver 0.0.0.0:8000"
-    environment:
-      - DB_HOST=${POSTGRES_HOST}
-      - DB_ENGINE=django.db.backends.postgresql
-      - DB_NAME=${POSTGRES_DB}
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_USER=${POSTGRES_USER}
-      - DB_PORT=${DB_PORT}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DEBUG=${DEBUG}
-      - RABBITMQ_DEFAULT_PORT=${RABBITMQ_DEFAULT_PORT}
     ports:
       - 8000:8000
     volumes:

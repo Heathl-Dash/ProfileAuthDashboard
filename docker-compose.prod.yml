@@ -16,7 +16,8 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-
+      - DEBUG=${DEBUG}
+      - RABBITMQ_DEFAULT_PORT=${RABBITMQ_DEFAULT_PORT}
     ports:
       - 8000:8000
     volumes:
@@ -35,8 +36,8 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
     ports:
-      - "5682:5672"
-      - "15682:15672"
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - rabbit-MQ-extern-network
 networks:

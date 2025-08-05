@@ -4,7 +4,7 @@ from .dashboardprofile import DashboardProfile
 
 class MonthWeigth(models.Model):
     weigth = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=5)
-    profile = models.ForeignKey(DashboardProfile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(DashboardProfile, on_delete=models.DO_NOTHING)
     imc_on_date = models.DecimalField(
         blank=True, null=True, decimal_places=2, max_digits=5
     )

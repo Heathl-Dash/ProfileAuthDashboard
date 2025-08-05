@@ -47,6 +47,7 @@ jobs:
             echo "DEBUG=${{secrets.DEBUG}}"  >> .env.prod
             echo "RABBITMQ_EXCHANGE_NAME=${{secrets.RABBITMQ_EXCHANGE_NAME}}" >> .env.prod
             echo "RABBITMQ_EXCHANGE_TYPE=${{secrets.RABBITMQ_EXCHANGE_TYPE}}" >> .env.prod
+            echo "RABBITMQ_DEFAULT_HOST=${{secrets.RABBITMQ_DEFAULT_HOST}}" >> .env.prod
 
             docker-compose -f docker-compose.prod.yml up -d --build
             cat .env.prod

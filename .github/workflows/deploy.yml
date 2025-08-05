@@ -16,7 +16,26 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{secrets.EC2_USER}}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: RABBITMQ_DEFAULT_PORT,DEBUG,DB_HOST,DB_NAME,DB_USER,DB_PASSWORD,DB_PORT,RABBITMQ_DEFAULT_USER,RABBITMQ_DEFAULT_PASS,RABBITMQ_DEFAULT_VHOST,ALLOWED_HOSTS,DB_ENGINE
+          envs: |
+            DB_ENGINE,
+            ALLOWED_HOSTS,
+            DB_HOST,
+            DB_NAME,
+            DB_USER,
+            DB_PASSWORD,
+            DB_PORT,
+            GOOGLE_CLIENT_ID,
+            SECRETJWT,
+            ACCESS_TIME,
+            REFRESH_TIME,
+            RABBITMQ_DEFAULT_USER,
+            RABBITMQ_DEFAULT_PASS,
+            RABBITMQ_DEFAULT_VHOST,
+            RABBITMQ_DEFAULT_PORT,
+            RABBITMQ_QUEUE_NAME,
+            RABBITMQ_EXCHANGE_NAME,
+            RABBITMQ_EXCHANGE_TYPE,
+            DEBUG
           script: |
             cd /home/ubuntu/repos/ProfileAuthDashboard
             git pull origin main
@@ -44,9 +63,9 @@ jobs:
             echo "RABBITMQ_EXCHANGE_NAME=$RABBITMQ_EXCHANGE_NAME" >> .env.prod
             echo "RABBITMQ_EXCHANGE_TYPE=$RABBITMQ_EXCHANGE_TYPE" >> .env.prod
             echo "DEBUG=$DEBUG" >> .env.prod
-        
-            docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 
+            docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+            cat .env.prod
 
     
 

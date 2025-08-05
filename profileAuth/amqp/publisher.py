@@ -66,6 +66,11 @@ def delete_user_publish_event(user_id):
 
 
 def delete_user_publish_exchange(user_id):
-    message_dict = {"user_id": user_id}
+    message_dict = {"user_id": user_id,'event':'delete'}
+    exchange_name = "user.events"
+    __add_to_exchange(exchange_name, message_dict)
+
+def create_user_publish_exchange(user_id):
+    message_dict = {"user_id": user_id,'event':'create'}
     exchange_name = "user.events"
     __add_to_exchange(exchange_name, message_dict)

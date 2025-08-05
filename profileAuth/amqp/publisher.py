@@ -8,6 +8,7 @@ RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
 RABBITMQ_DEFAULT_VHOST = os.getenv("RABBITMQ_DEFAULT_VHOST")
 RABBITMQ_DEFAULT_PORT = os.getenv("RABBITMQ_DEFAULT_PORT")
 
+print(RABBITMQ_DEFAULT_PORT)
 def __get_connection_and_channel():
     """devolve a conexão com o rabbitMQ e o canal de comunicação, a conexão
     sempre deve ser fechada no final do seu uso"""
